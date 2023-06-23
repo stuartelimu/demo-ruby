@@ -1,12 +1,7 @@
 <%= turbo_stream.update("posts_container") do %>
-  <div id="posts" style="border: 10px solid red;">
-    <% @posts.each do |post| %>
-      <%= render post %>
-      <p>
-        <%= link_to "Show this post", post %>
-      </p>
-    <% end %>
-  </div>
+  <ul id="posts" style="border: 10px solid red;">
+      <%= render @posts %>
+  </ul>
 <% end %>
 
 
@@ -25,7 +20,9 @@
     <% end %>
 
     <% @pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36] %>
-      <%= link_to "#{item}", posts_url(page: item), data: { turbo_stream: true } %>
+      <% if item.is_a?(Integer) %>  <span class="page"><%= link_to "#{item}", posts_url(page: item), data: { turbo_stream: true } %></span>
+      <% elsif item.is_a?(String) %>  <span class="page current"><%= item %></span>
+      <% elsif item == :gap %> <span class="page gap"><%=  %></span><%   end %>
     <%   end %>
     
 

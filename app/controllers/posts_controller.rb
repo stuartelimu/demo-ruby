@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.all
-    @pagy, @posts = pagy(@posts, items: 3) 
+    @pagy, @posts = pagy(@posts, items: 10) 
 
 
     respond_to do |format|
