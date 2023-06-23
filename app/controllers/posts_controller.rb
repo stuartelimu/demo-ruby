@@ -5,6 +5,13 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
     @pagy, @posts = pagy(@posts, items: 3) 
+
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html 
+    end
+
   end
 
   # GET /posts/1 or /posts/1.json

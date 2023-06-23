@@ -2,18 +2,24 @@
 
 <h1>Posts</h1>
 
-<div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
-  <% end %>
-</div>
-
 <%= link_to "New post", new_post_path %>
 
-<div>
+<%= turbo_frame_tag "posts_container", src: posts_url(format: :turbo_stream, page: params[:page]), loading: "lazy" do %>
+  <div id="posts" style="border: 10px solid red;">
+    <% @posts.each do |post| %>
+      <%= render post %>
+      <p>
+        <%= link_to "Show this post", post %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+
+<%# containers %>
+
+
+<%= turbo_frame_tag "posts_pagination" do %>
   <%= pagy_nav(@pagy).html_safe %>
-<div>
+<% end %>
+
 

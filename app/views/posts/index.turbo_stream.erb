@@ -1,0 +1,37 @@
+<%= turbo_stream.update("posts_container") do %>
+  <div id="posts" style="border: 10px solid red;">
+    <% @posts.each do |post| %>
+      <%= render post %>
+      <p>
+        <%= link_to "Show this post", post %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+
+
+
+
+
+<%= turbo_stream.update("posts_pagination") do %>
+
+
+
+  <div style="margin-top: 10px">
+
+
+    <% if @pagy.prev %>
+      <%= link_to "Prev", posts_url(page: @pagy.prev), data: { turbo_stream: true } %>
+    <% end %>
+
+    <% @pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36] %>
+      <%= link_to "#{item}", posts_url(page: item), data: { turbo_stream: true } %>
+    <%   end %>
+    
+
+    <% if @pagy.next %>
+      <%= link_to "Next", posts_url(page: @pagy.next), data: { turbo_stream: true } %>
+    <% end %> 
+  </div>
+
+<% end %>
